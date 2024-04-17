@@ -9,6 +9,6 @@ router.get('/', (req, res) => {
 })
 
 const userController = new UserController();
-router.post('/user/signup', (req, res, next) => userController.signup(req, res, next));
+router.post('/user/signup', userController.signup);
 
 export default router;

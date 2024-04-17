@@ -7,8 +7,7 @@ export class UserModel extends BaseModel {
   }
 
   async create({ firstName, lastName, email, password}) {
-      console.log('model', firstName, lastName, email);
-      return await this.query(
+    await this.query(
       `INSERT INTO ${this.table} (first_name, last_name, email, password) VALUES (?,?,?,?)`, 
       [firstName, lastName, email, password],
     );

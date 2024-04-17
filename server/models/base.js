@@ -12,7 +12,7 @@ export class BaseModel {
 
     async query(...queryArgs) {
         const conn = await this.connectDB();
-        const res = conn.query(...queryArgs);
+        await conn.query(...queryArgs);
         conn.end();
     }
 }
