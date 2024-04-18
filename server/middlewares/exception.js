@@ -5,5 +5,6 @@ export const catchError = (err, req, res, next) => {
   res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
+    stack: process.env.ENV === 'dev' ? err.stack : '',
   });
 }
