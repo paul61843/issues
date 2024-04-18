@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run dev",
     "dev": "nodemon -r dotenv/config ./app.js dotenv_config_path=./env/dev.env dotenv_config_debug=true",
-    "prod": "cross-env NODE_ENV=production && node app.js"
+    "prod": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,8 +19,5 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.4",
     "nodemon": "^3.1.0"
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.3"
   }
 }
