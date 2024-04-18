@@ -8,8 +8,8 @@ export class UserService extends BaseService {
         this.userModel = new UserModel();
     }
 
-    async login(user, password) {
-        return { id, name: 'John Doe' };
+    async login(reqContent) {
+        return this.userModel.login(reqContent);
     }
 
     async signup(reqContent) {
