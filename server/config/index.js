@@ -10,4 +10,11 @@ export const poolConfig = {
     queueLimit: 0,
     enableKeepAlive: true,
     keepAliveInitialDelay: 0,
-  }
+}
+
+export const jwtConfig = {
+    secret: process.env.JWT_SECRET,
+    options: {
+      expiresIn: '1h'
+    }
+}

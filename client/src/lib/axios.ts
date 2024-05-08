@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { error } from 'node_modules/astro/dist/core/logger/core';
 
 const instance = axios.create({
   baseURL: import.meta.env.PUBLIC_SERVER_API_HOST,

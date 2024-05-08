@@ -1,5 +1,3 @@
-import React, { type FormEvent, useState } from 'react';
-
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
@@ -9,7 +7,7 @@ import { loginFormResolver, type loginFormType } from '@/schema/login-schema';
 
 
 export function LoginForm() {
-    const { control, handleSubmit, register, formState: { errors }} = useForm<loginFormType>({
+    const { handleSubmit, register, formState: { errors }} = useForm<loginFormType>({
         resolver: loginFormResolver,
         defaultValues: {
             email: '',
