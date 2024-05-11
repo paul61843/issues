@@ -6,10 +6,10 @@ export class UserModel extends BaseModel {
     this.table = 'users';
   }
 
-  async login({ email, password }) {
+  async login({ email }) {
     const user = await this.query(
-      `SELECT * FROM ${this.table} WHERE email = ? AND password = ?`, 
-      [email, password],
+      `SELECT * FROM ${this.table} WHERE email = ?`, 
+      [email],
     );
     return user;
   }
@@ -21,6 +21,14 @@ export class UserModel extends BaseModel {
     );
   }
 
+  async userInfo({ id }) {
+    console.log(id)
+    const user = await this.query(
+      `SELECT * FROM ${this.table} WHERE id = ?`, 
+      [id],
+    );
+    return user;
+  }
 
 
 }

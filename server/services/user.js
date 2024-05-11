@@ -16,8 +16,8 @@ export class UserService extends BaseService {
         await this.userModel.create(reqContent);
     }
 
-    async getCurrentUser(req, res, next) {
-        return await this.login(req.params.id);
+    async getUserInfo(reqContent) {
+        return await this.userModel.userInfo(reqContent);
     }
 
     async updateUserInfo(req, res, next) {
