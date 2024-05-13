@@ -8,8 +8,8 @@ const router = express.Router();
 const authController = new AuthController();
 const userController = new UserController();
 
-router.post('/user/login',userController.login);
-router.post('/user/signup',userController.signup);
-router.get('/user/:id', authController.loginGuard, userController.userInfo)
+router.route('/user/login').post(userController.login);
+router.route('/user/signup').post(userController.signup);
+router.route('/user/:id').get(authController.loginGuard, userController.userInfo)
 
 export default router;

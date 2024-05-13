@@ -35,7 +35,7 @@ export class UserController extends BaseController {
       return;
     }
 
-    res.status(200).json({ status: 'success', data: { token }});
+    res.status(200).json({ status: 'success', data: { userInfo, token }});
   });
 
   signup = catchAsync(async (req, res, next) => {

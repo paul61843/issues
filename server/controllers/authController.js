@@ -1,7 +1,9 @@
 import jwt from "jsonwebtoken";
 
+import { AppError } from "../helpers/appError.js";
 import { catchAsync } from "../helpers/catchAsync.js";
 import { BaseController } from "./base.js";
+import { UserService } from "../services/user.js";
 
 
 export class AuthController extends BaseController {
@@ -14,21 +16,24 @@ export class AuthController extends BaseController {
             !req.headers.authorization && 
             !req.headers.authorization.startsWith('Bearer')
         ) {
-            res.status(401).json({ status: 'fail', message: 'Unauthorized' });
-            return;
+            return next(AppError('Unauthorized', 401));
         } 
         const token = req.headers.authorization.split(' ')[1];
 
         if(!token) {
-            res.status(401).json({ status: 'fail', message: 'Unauthorized' });
-            return;
+            return next(AppError('Unauthorized', 401));
         }
 
-        const success = await jwt.verify(token, process.env.JWT_SECRET);
+        const payload = await jwt.verify(token, process.env.JWT_SECRET);
 
         if(!success) {
-            res.status(401).json({ status: 'fail', message: 'Unauthorized' });
-            return;
+            return next(AppError('Unauthorized', 401));
+        }
+
+        const [userInfo] = await UserService.getUserInfo({ id: payload.id });
+
+        if(userInfo.length === 0) {
+            return next(AppError('Unauthorized', 401));
         }
 
         next();
