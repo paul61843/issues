@@ -8,7 +8,8 @@ import { UserService } from "../services/user.js"
 import { catchAsync } from "../helpers/catchAsync.js";
 
 function createToken(user) {
-  const payload = { id: user.id, email: user.email };
+  console.log('user', user)
+  const payload = { id: user.id };
   return jwt.sign(payload, jwtConfig.secret, jwtConfig.options);
 }
 
@@ -21,13 +22,13 @@ export class UserController extends BaseController {
 
   login = catchAsync(async (req, res, next) => {
     const reqContent = req.body;
-    const token = createToken(reqContent);
 
     const [results, fields] = await this.userService.login(reqContent);
     const userInfo = results[0];
+    const token = createToken(userInfo);
 
     const passwordCorrect = await bcrypt.compare(reqContent.password, userInfo.password);
-
+    
     delete userInfo.password;
 
     if (!passwordCorrect) {
@@ -43,6 +44,7 @@ export class UserController extends BaseController {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(reqContent.password, salt);
     reqContent.password = hash;
+    reqContent.role = 'user';
 
     await this.userService.signup(reqContent);
 
@@ -52,7 +54,7 @@ export class UserController extends BaseController {
   userInfo = catchAsync(async (req, res, next) => {
     const reqContent = { id: req.params.id};
     const [results, fields] = await this.userService.getUserInfo(reqContent);
-
+    
     res.status(200).json({ status: 'success', data: results[0]});
   })
 }

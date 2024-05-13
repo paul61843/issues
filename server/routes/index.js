@@ -10,6 +10,9 @@ const userController = new UserController();
 
 router.route('/user/login').post(userController.login);
 router.route('/user/signup').post(userController.signup);
-router.route('/user/:id').get(authController.loginGuard, userController.userInfo)
+router.route('/user/:id').get(
+    [authController.loginGuard, authController.permissionGuard(['user'])],
+    userController.userInfo
+)
 
 export default router;

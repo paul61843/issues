@@ -14,15 +14,14 @@ export class UserModel extends BaseModel {
     return user;
   }
 
-  async create({ firstName, lastName, email, password}) {
+  async create({ firstName, lastName, email, password, role}) {
     await this.query(
-      `INSERT INTO ${this.table} (first_name, last_name, email, password) VALUES (?,?,?,?)`, 
-      [firstName, lastName, email, password],
+      `INSERT INTO ${this.table} (first_name, last_name, email, password, role, created, updated) VALUES (?,?,?,?,?,NOW(),NOW())`, 
+      [firstName, lastName, email, password, role],
     );
   }
 
   async userInfo({ id }) {
-    console.log(id)
     const user = await this.query(
       `SELECT * FROM ${this.table} WHERE id = ?`, 
       [id],
